@@ -19,7 +19,7 @@
 
 
 ## 서비스 URL 정보
-* 실행 URL: [[https://sunha-shin.github.io/javascript-chatgpt-clone/](https://sunha-shin.github.io/javascript-chatgpt-clone/src/index.html)](https://sunha-shin.github.io/javascript-chatgpt-clone/src/index.html)
+* 실행 URL: https://sunha-shin.github.io/javascript-chatgpt-clone/src/index.html
 * github repository: https://github.com/sunha-shin/javascript-chatgpt-clone
     
 
