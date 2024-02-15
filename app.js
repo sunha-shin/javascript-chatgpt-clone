@@ -1,52 +1,98 @@
-const submitButton = document.querySelector('#submit')
-const outputElement = document.querySelector('#output')
-const inputElement = document.querySelector('input')
-const historyElement = document.querySelector('.history')
-const buttonElement = document.querySelector('button')
+let shouldAddToHistory = true; // 전역 변수로 historyElementCreator 호출 여부를 제어
 
-function changeInput(value) {
-    const inputElement = document.querySelector('input')
-    inputElement.value = value    
-    console.log('change input')
-}
+const submitButton = document.querySelector('#submit');
+const outputElement = document.querySelector('#output');
+const inputElement = document.querySelector('input');
+const historyElement = document.querySelector('.history');
+const newChatButton = document.querySelector('#new-chat');
 
-async function getMessage() {
-    console.log('clicked')
+const getMessage = async () => {
+    console.log('Fetching message...');
+    // 로딩 아이콘을 표시 (세 개의 점으로 구성)
+    showLoadingIcon();
+
     try {
         const response = await fetch('https://open-api.jejucodingcamp.workers.dev/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify([               
-                {"role": "user", "content": inputElement.value}
-            ])
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify([{ "role": "user", "content": inputElement.value }])
         });
 
-        const data = await response.json()
-        console.log(data)
-        outputElement.textContent = data.choices[0].message.content
-        
-        if(data.choices[0].message.content) {
-            const pElement = document.createElement('output')
-            pElement.style.cssText = 
-                'padding:8px; margin:0; fontSize:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;cursor:pointer'
-            pElement.textContent = inputElement.value
-            pElement.addEventListener('clcik', () => changeInput(pElement.textContent))
-            historyElement.append(pElement)
+        const data = await response.json();
+        console.log(data);
+
+        outputElement.innerHTML = ''; // 로딩 아이콘 제거
+        const chatResponse = data.choices[0].message.content;
+        typeWriter('output', chatResponse);
+
+        if (chatResponse && shouldAddToHistory) {
+            historyElementCreator(inputElement.value);
         }
-
     } catch (error) {
-        throw new Error('Network response was not ok');
+        console.error('Network response was not ok');
+        outputElement.innerHTML = 'Error fetching message.';
     }
+};
+
+
+
+const historyElementCreator = (text) => {
+    const historyP = document.createElement('p');
+    historyP.textContent = text;
+    historyElement.append(historyP);
+
+    historyP.addEventListener('click', () => {
+        changeInput(historyP.textContent, false); // false indicates not to add to history again
+    });
+};
+
+const changeInput = (value, addToHistory = true) => {
+    inputElement.value = value;
+    shouldAddToHistory = addToHistory; // Update the global flag based on the function argument
+
+    if (!addToHistory) {
+        getMessage();
+    }
+};
+
+const clearInput = () => {
+    inputElement.value = '';
+    outputElement.textContent = '';
+};
+
+const typeWriter = (elementId, text, typingDelay = 30) => {
+    const element = document.getElementById(elementId);
+    let i = 0;
+
+    const type = () => {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, typingDelay);
+        }
+    };
+    type();
+};
+
+const showLoadingIcon = () => {
+    outputElement.innerHTML = `
+      <div class="loading-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    `;
 }
 
-submitButton.addEventListener('click', getMessage); // 버튼 클릭 시 getMessage 함수 호출
+// Activate submission via Enter key
+inputElement.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        getMessage();
+        event.preventDefault();
+    }
+});
 
-function clearInput() {
-    inputElement.value = ''
-    document.getElementById('output').textContent = '';
-    console.log('clear input')
-}
-
-buttonElement.addEventListener('click', clearInput)
+submitButton.addEventListener('click', getMessage);
+newChatButton.addEventListener('click', clearInput);
