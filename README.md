@@ -31,34 +31,38 @@
 
 
 ## 기능 명세 (Sequence Diagram)
-![alt text](./src/img/SequenceDiagram.png)
+![alt text](./img/SequenceDiagram.png)
 
 
 ## 파일 구조
-![alt text](./src/img/file_structure.png)
+![alt text](./img/fileStructure.png)
 
 
 
 ## WBS
-![alt text](./src/img/wbs.png)
+![alt text](./img/wbs.png)
 
 
 
 ## 화면 정의서
   * 기본화면 
-  ![alt text](./src/img/defaultView.png)
+  ![alt text](./img/defaultView.png)
 
   * 질문 입력시 답변 및 히스토리 생성
-    ![alt text](./src/img/inputHello.png)
-    ![alt text](./src/img/inputLongWords.png)
+    ![alt text](./img/inputHello.png)
+    ![alt text](./img/inputLongWords.png)
 
   * 이전 질문 클릭 시 히스토리 생성 X
-    ![alt text](./src/img/historyClick.png)
+    ![alt text](./img/historyClick.png)
 
   * 응답 오류시
-  ![alt text](./src/img/resError.png) 
+  ![alt text](./img/resError.png) 
 
 
+## 참고
+  * https://chat.openai.com/ 스타일을 참고 <br>
+  ![alt text](./img/chatGPT.png)
+    
 
 ## 트러블슈팅 히스토리
 **API call 에러코드 429 문제**
@@ -78,7 +82,7 @@
    - 오타수정하니 오류메세지 안보이게 해결<br>
 
 
-## 참고
-  * https://chat.openai.com/ 스타일을 참고 <br>
-  ![alt text](./src/img/chatGPT.png)
-    
+## What I learned
+   - 시간 내에 주어진 task를 끝내는 것이 중요! -> 시간을 더 들여서 좋은 코드를 만드려고 하기보다는 아주 간단하게라도 나에게 주어진 일을 끝내는 것이 우선. 아주 간단한 기능이라도 작동하게 하려면 신입은 시간이 걸린다는 것을 명심!!
+   - 한 함수당 한가지 기능만 -> 로직이 꼬이지 않음. 유지보수 용이!
+   - if문 사용&중첩 -> early return 방법으로, 함수가 특정 조건을 만족하지 않을 때 빠르게 종료되도록 하여 중첩된 조건문을 피할 수 있어 가독성이 더 좋고 로직 이해가 용이함. ex.clickHistoryChild
