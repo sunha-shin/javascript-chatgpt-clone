@@ -2,39 +2,46 @@
 이 프로젝트는 OpenAI의 ChatGPT를 모방하여 만든 간단한 대화형 웹 애플리케이션입니다. 사용자는 텍스트 메시지를 입력하고, 인공 지능 기반의 응답을 받을 수 있습니다. 이 클론은 웹 기술인 HTML, CSS, 및 JavaScript를 사용하여 구현되었습니다.
 
 
-### 프로젝트 특징
+
+## 프로젝트 특징
 * 사용자로부터 텍스트 입력 받기
 * chatGPT의 API를 사용하여 응답 생성
 * 대화 히스토리 관리 및 표시
 * 타이핑 효과, 닷로딩 등을 추가하여 사용자 경험 개선
 
 
-### 사용방법
+
+## 사용방법
 * AskGPT 사이트에 접속하여 입력 창에 질문을 입력합니다.
 * Enter 키를 누르면 클론이 응답을 생성하고 표시됩니다.
 * 왼쪽 사이드바에는 입력값 히스토리가 있어 클릭시 이전에 주고 받은 대화 내용을 확인할 수 있습니다.
 
 
-### 서비스 URL 정보
+
+## 서비스 URL 정보
 * 실행 URL: https://sunha-shin.github.io/javascript-chatgpt-clone/
 * github repository: https://github.com/sunha-shin/javascript-chatgpt-clone
     
 
-### 기존 GitHub 블로그와 비교
+
+## 기존 GitHub 블로그와 비교
 * 접근성 및 설치 용이성: GitHub에서 바로 fork 및 사용 가능 및 패키지 설치과정 X, 로그인X
 * 커스터마이징의 용이성: HTML, CSS, JavaScript를 사용한 간단한 구조로 쉬운 맞춤 설정 제공
 * 단순화된 구조: 복잡한 백엔드나 추가 서버 설정 없이 프론트엔드 기술만으로 구현
 
 
-### 파일 구조
+
+## 파일 구조
 ![alt text](./src/img/file_structure.png)
 
 
-### WBS
+
+## WBS
 ![alt text](./src/img/wbs.png)
 
 
-### 화면 정의서
+
+## 화면 정의서
   * 기본화면 
   ![alt text](./src/img/defaultView.png)
 
@@ -49,9 +56,11 @@
   ![alt text](./src/img/resError.png) 
 
 
-### 트러블슈팅 히스토리
+
+## 트러블슈팅 히스토리
 **API call 에러코드 429 문제**
    - 개인 key를 사용해서 api call 요청시 크레딧이 부족할 경우 응답이 제한됨. 외부 URL을 사용해서 call 요청하여 해결. <br>
+
 
 **이전 질문 클릭 후 새로 질문 입력 시 히스토리에 반영 X**
    - 처음에는 전역변수 flag의 true/false 상태에 따라 히스토리에 추가할지 말지를 정하려고 했으나 로직이 복잡하여 제거
@@ -59,13 +68,14 @@
    - if문을 사용하여 지난 응답값을 관리하여 배열에서 클릭한 질문의 응답을 찾은 후 화면에 보여주는 함수 추가
    - submit버튼 클릭이나 엔터시에만 historyElement에 입력한 것을 append하는 함수 추가<br>
 
+
 **try/catch 에러**
    - getMessage 함수 내에서 api 통신을 한 부분에서 오류가 발생하여 화면에 오류메세지와 올바른 응답이 같이보임
    - api 통신은 성공적이었으나 try문 안에서 비동기 통신 후 불러온 함수 내에서 오타가 있어서 이것을 에러로 잡고 에러메세지를 내보냄
    - 오타수정하니 오류메세지 안보이게 해결<br>
 
 
-### 참고
+## 참고
   * https://chat.openai.com/ 스타일을 참고 <br>
   ![alt text](./src/img/chatGPT.png)
     
