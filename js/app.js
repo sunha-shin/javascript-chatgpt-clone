@@ -1,12 +1,14 @@
-// DOM 요소 선택
-const submitButton = document.querySelector('#submit');
-const outputElement = document.querySelector('#output');
-const inputElement = document.querySelector('input');
-const historyElement = document.querySelector('.history');
-const newChatButton = document.querySelector('#new-chat');
+// DOM 요소 선택: 필요한 HTML 요소들을 선택하여 변수에 할당합니다.
+const submitButton = document.querySelector('#submit'); // 제출 버튼
+const outputElement = document.querySelector('#output'); // 출력을 표시할 요소
+const inputElement = document.querySelector('input'); // 사용자 입력을 받는 input 요소
+const historyElement = document.querySelector('.history'); // 이전 채팅 내역을 표시할 요소
+const newChatButton = document.querySelector('#new-chat'); // 새 채팅 시작 버튼
 
-const dataReqRes = [] // 지난 응답값을 관리하는 배열
+// 지난 응답값을 관리하는 배열
+const dataReqRes = [];
 
+// fetchChatResponse: 사용자 입력을 바탕으로 API에 요청을 보내고 응답을 받는 비동기 함수입니다.
 const fetchChatResponse = async (userInput) => {
     const response = await fetch('https://open-api.jejucodingcamp.workers.dev/', {
         method: 'POST',
@@ -15,13 +17,13 @@ const fetchChatResponse = async (userInput) => {
     });
 
     if (!response.ok) {
-        // 더 상세한 에러 분류 가능
         throw new Error(`서버 에러: ${response.statusText}`);
     }
     
     return response.json();
 };
 
+// getMessage: 사용자 입력을 처리하고, API 응답을 화면에 표시하는 메인 함수입니다.
 const getMessage = async () => {    
     showLoadingIcon(); // 로딩 아이콘을 표시
 
@@ -30,7 +32,7 @@ const getMessage = async () => {
         const chatResponse = data.choices[0].message.content;
         dataReqRes.push({ question: inputElement.value, response: chatResponse });
 
-        clearOutput() 
+        clearOutput(); 
         typeWriter(outputElement, chatResponse); // 타이핑 효과로 응답 표시
         historyElementCreator(inputElement.value); // 입력 이력 생성        
         console.log("dataReqRes: ", dataReqRes);
@@ -41,48 +43,44 @@ const getMessage = async () => {
     }
 };
 
-// 입력 이력을 생성하고, 클릭 시 해당 내용을 재출력하는 함수
+// historyElementCreator: 사용자가 입력한 채팅 내역을 기록하는 함수입니다.
 const historyElementCreator = (inputValue) => {
     const historyChild = document.createElement('p');
     historyChild.textContent = inputValue;
     historyElement.append(historyChild);
 };
 
+// clickHistoryChild: 채팅 이력을 클릭했을 때 해당 내용을 다시 출력하는 이벤트 핸들러입니다.
 const clickHistoryChild = (event) => {
-    // 클릭된 요소가 'P' 태그가 아니라면 함수 종료
     if (event.target.tagName !== 'P') return;
 
-    // 이 시점부터는 클릭된 요소가 'P' 태그인 경우만 처리
-    const historyChild = event.target; // 클릭된 p 요소
-    clearOutput() // 기존 출력 내용 클리어
-
-    // 객체 배열에서 해당 질문의 응답 찾기
+    const historyChild = event.target;
+    clearOutput();
     const matchedEntry = dataReqRes.find(entry => entry.question === historyChild.textContent);
-    if (!matchedEntry) return; // 매칭되는 질문이 없다면 함수 종료
-
-    // 저장된 응답 재출력
-    typeWriter('output', matchedEntry.response);
     
-    // 입력 필드에 클릭된 질문 설정
+    if (!matchedEntry) return;
+
+    typeWriter(outputElement, matchedEntry.response);
     changeInput(historyChild.textContent);
 };
 
-// 입력 필드 값을 변경하는 함수
+// changeInput: 입력 필드의 값을 변경하는 함수입니다.
 const changeInput = (value) => {
     inputElement.value = value;
 };
 
-// 입력 필드와 출력 요소를 클리어하는 함수
+// clearInput: 입력 필드와 출력 요소를 클리어하는 함수입니다.
 const clearInput = () => {
     inputElement.value = '';
     outputElement.textContent = '';
 };
 
+// clearOutput: 출력 요소의 내용을 클리어하는 함수입니다.
 const clearOutput = () => {
     outputElement.innerHTML = '';
 };
 
-// 텍스트를 타이핑 효과로 표시하는 함수
+// typeWriter: 텍스트를 타이핑 효과로 표시하는 함수입니다.
 const typeWriter = (element, text, typingDelay = 30) => {
     let i = 0;
     const type = () => {
@@ -95,7 +93,7 @@ const typeWriter = (element, text, typingDelay = 30) => {
     type();
 };
 
-// 로딩 아이콘을 표시하는 함수
+// showLoadingIcon: 로딩 아이콘을 표시하는 함수입니다.
 const showLoadingIcon = () => {
     outputElement.innerHTML = `
       <div class="loading-dots">
@@ -108,7 +106,7 @@ const showLoadingIcon = () => {
     `;
 }
 
-// Enter시 메시지 전송 이벤트 리스너
+// inputElement에 'keypress' 이벤트 리스너 추가: Enter 키를 눌렀을 때 메시지를 전송합니다.
 inputElement.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         getMessage();
@@ -116,7 +114,11 @@ inputElement.addEventListener('keypress', (event) => {
     }
 });
 
-// 버튼 클릭 이벤트 리스너
+// submitButton에 'click' 이벤트 리스너 추가: 버튼 클릭 시 메시지를 전송합니다.
 submitButton.addEventListener('click', getMessage);
+
+// newChatButton에 'click' 이벤트 리스너 추가: 새 채팅을 시작하고 입력 필드와 출력을 클리어합니다.
 newChatButton.addEventListener('click', clearInput);
+
+// historyElement에 'click' 이벤트 리스너 추가: 채팅 이력을 클릭하면 해당 내용을 재출력합니다.
 historyElement.addEventListener('click', clickHistoryChild)
