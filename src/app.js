@@ -11,7 +11,7 @@ const getMessage = async () => {
     showLoadingIcon(); // 로딩 아이콘을 표시
 
     try {
-        const response = await fetch('https://open-api.jejucodingcamp.workers.de/', {
+        const response = await fetch('https://open-api.jejucodingcamp.workers.dev/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify([{ "role": "user", "content": inputElement.value }])
