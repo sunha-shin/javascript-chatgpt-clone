@@ -10,7 +10,7 @@ const getMessage = async () => {
     console.log('Fetching message...');
     // 로딩 아이콘을 표시 (세 개의 점으로 구성)
     showLoadingIcon();
-
+    
     try {
         const response = await fetch('https://open-api.jejucodingcamp.workers.dev/', {
             method: 'POST',
@@ -44,15 +44,14 @@ const historyElementCreator = (text) => {
     historyP.addEventListener('click', () => {
         changeInput(historyP.textContent, false); // false indicates not to add to history again
     });
+
+    !shouldAddToHistory
 };
 
-const changeInput = (value, addToHistory = true) => {
+const changeInput = (value) => {
     inputElement.value = value;
-    shouldAddToHistory = addToHistory; // Update the global flag based on the function argument
-
-    if (!addToHistory) {
-        getMessage();
-    }
+    shouldAddToHistory = false;
+    getMessage();
 };
 
 const clearInput = () => {
