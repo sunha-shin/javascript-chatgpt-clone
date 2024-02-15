@@ -30,6 +30,9 @@
 * 단순화된 구조: 복잡한 백엔드나 추가 서버 설정 없이 프론트엔드 기술만으로 구현
 
 
+## 기능 명세 (Sequence Diagram)
+![alt text](./src/img/SequenceDiagram.png)
+
 
 ## 파일 구조
 ![alt text](./src/img/file_structure.png)
