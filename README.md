@@ -27,25 +27,25 @@
 
 
 * 파일 구조<br>
-![alt text](image.png)
+![alt text](./src/img/file_structure.png)
 
 * WBS
-![alt text](image-2.png)
+![alt text](./src/img/wbs.png)
 
 
 * 화면 정의서<br>
   1. 기본화면 
-  ![alt text](image-4.png)
+  ![alt text](./src/img/defaultView.png)
 
   2. 질문 입력시 답변 및 히스토리 생성
-    ![alt text](image-5.png)
-    ![alt text](image-6.png)
+    ![alt text](./src/img/inputHello.png)
+    ![alt text](./src/img/inputLongWords.png)
 
   3. 이전 질문 클릭 시 히스토리 생성 X
-    ![alt text](image-7.png)
+    ![alt text](./src/img/historyClick.png)
 
   4. 응답 오류시
-  ![alt text](image-8.png) 
+  ![alt text](./src/img/resError.png) 
 
 * 트러블슈팅 히스토리
   1. API call 에러코드 429 문제 
@@ -64,5 +64,5 @@
 
 * 참고
   * https://chat.openai.com/ 스타일을 참고 <br>
-  ![alt text](image-9.png)
+  ![alt text](./src/img/chatGPT.png)
     
