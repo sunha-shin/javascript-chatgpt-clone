@@ -4,30 +4,30 @@
     <meta charset="UTF-8" />
     <title>JavaScript ChatGPT Clone</title>
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="./css/nomalize.css">
+    <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
   <body>
     <!-- 사이드바 섹션 -->
     <aside class="side-bar">
-      <button class='button' id="new-chat">New chat</button>
-      <div class="history"></div>
-      <footer id="madeBy"><p>Made by Sunha</p></nav>
+      <button class='button' id="new-chat"  aria-label="Start a new chat">New chat</button>
+      <div class="history"  aria-label="Chat history"></div>
+      <footer id="madeBy"><p>Made by Sunha</p></footer>
     </aside>
 
     <!-- 메인 섹션 -->
     <main class="main">
       <header>
         <h1 id="title">AskGPT</h1>
-        <p id="output"></p>
+        <p id="output" aria-live="polite"></p>
       </header>
 
       <!-- 사용자 입력을 받는 섹션 -->
       <div class="bottom-section">
         <div class="input-container">
-          <input id="input" type="text" placeholder="Message AskGPT..." />
-          <button id="submit"><i class="fas fa-paper-plane"></i></button>
+          <input id="input" type="text" placeholder="Message AskGPT..." aria-label="Type your message here"/>
+          <button id="submit"  aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
         </div>
         <p class="info">
           ChatGPT can make mistakes. Consider checking important information.
